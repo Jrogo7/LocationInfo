@@ -10,8 +10,7 @@
   "Description": "Displays current player coordinates.",
   "ApplicableVersion": "any",
   "RepoUrl": "https://github.com/Jrogo7/LocationInfo",
-  "Tags": [
-  ],
+  "Tags": ["tools"],
   "DalamudApiLevel": 9,
   "LoadRequiredState": 0,
   "LoadSync": false,

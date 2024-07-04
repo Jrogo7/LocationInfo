@@ -5,6 +5,6 @@
   "Description": "Displays current player coordinates.",
   "ApplicableVersion": "any",
   "RepoUrl": "https://github.com/Jrogo7/LocationInfo",
-  "Tags": [],
+  "Tags": ["tools"],
   "IconUrl": "https://raw.githubusercontent.com/Jrogo7/LocationInfo/master/images/icon.png"
 }

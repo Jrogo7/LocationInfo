@@ -11,7 +11,7 @@ namespace LocationInfo
   {
     public string Name => "Location Info";
     private const string CommandName = "/loc";
-    [PluginService] public static DalamudPluginInterface PluginInterface { get; private set; } = null!;
+    [PluginService] public static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
     [PluginService] public static IClientState ClientState { get; private set; } = null!;
     [PluginService] public static IFramework Framework { get; private set; } = null!;
     [PluginService] public static IDataManager DataManager { get; private set; } = null!;
@@ -20,21 +20,16 @@ namespace LocationInfo
     [PluginService] public static IObjectTable Objects { get; private set; } = null!;
     [PluginService] public static IPluginLog Log { get; private set; } = null!;
     [PluginService] public static IChatGui Chat { get; private set; } = null!;
+    [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
 
-    private ICommandManager CommandManager { get; init; }
     public Configuration Configuration { get; init; }
 
     // Windows 
     public WindowSystem WindowSystem = new("LocationInfo");
     private MainWindow MainWindow { get; init; }
 
-    public Plugin(
-        [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
-        [RequiredVersion("1.0")] ICommandManager commandManager)
+    public Plugin()
     {
-      PluginInterface = pluginInterface;
-      this.CommandManager = commandManager;
-
       this.Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
       this.Configuration.Initialize(PluginInterface);
 
@@ -42,10 +37,17 @@ namespace LocationInfo
 
       WindowSystem.AddWindow(MainWindow);
 
-      this.CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand) { ShowInHelp = true, HelpMessage = "Open location info window to see player location" });
+      CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand) { ShowInHelp = true, HelpMessage = "Open location info window to see player location" });
 
       PluginInterface.UiBuilder.Draw += DrawUI;
-    }
+
+    // This adds a button to the plugin installer entry of this plugin which allows
+    // to toggle the display status of the configuration ui
+    PluginInterface.UiBuilder.OpenConfigUi += ToggleConfigUI;
+
+    // Adds another button that is doing the same but for the main ui of the plugin
+    PluginInterface.UiBuilder.OpenMainUi += ToggleMainUI;
+}
 
     public void Dispose()
     {
@@ -53,7 +55,7 @@ namespace LocationInfo
 
       MainWindow.Dispose();
 
-      this.CommandManager.RemoveHandler(CommandName);
+      CommandManager.RemoveHandler(CommandName);
     }
 
     private void OnCommand(string command, string args)
@@ -64,8 +66,11 @@ namespace LocationInfo
 
     private void DrawUI()
     {
-      this.WindowSystem.Draw();
+        this.WindowSystem.Draw();
     }
 
-  } // Plugin
+    public void ToggleConfigUI() => MainWindow.Toggle();
+    public void ToggleMainUI() => MainWindow.Toggle();
+
+    } // Plugin
 }
