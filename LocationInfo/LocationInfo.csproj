@@ -18,5 +18,13 @@
     <Content Include="..\images\icon.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Reference Include="FFXIVClientStructs">
+      <HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="DalamudPackager" Version="13.0.0" />
   </ItemGroup>
 </Project>
