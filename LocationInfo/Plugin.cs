@@ -20,6 +20,7 @@ namespace LocationInfo
     [PluginService] public static ITextureProvider TextureProvider { get; private set; } = null!;
     // Game Objects 
     [PluginService] public static IObjectTable Objects { get; private set; } = null!;
+    [PluginService] public static IPlayerState PlayerState { get; private set; } = null!;
     [PluginService] public static IPluginLog Log { get; private set; } = null!;
     [PluginService] public static IChatGui Chat { get; private set; } = null!;
     [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;

@@ -23,7 +23,8 @@ public class MainWindow : Window, IDisposable
 
   public override void Draw()
   {
-    var localPlayer = Plugin.ClientState.LocalPlayer;
+    
+    var localPlayer = Plugin.Objects.LocalPlayer;
     if (localPlayer != null) {
       ImGui.Text("Player Position");
       ImGui.Text("  x: " + localPlayer.Position.X);
