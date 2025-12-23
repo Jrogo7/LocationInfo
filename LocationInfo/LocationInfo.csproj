@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Authors>Jrogo</Authors>
     <Company></Company>
-    <Version>3.1.1</Version>
+    <Version>3.2.0</Version>
     <Description>See current player coordinates</Description>
     <Copyright></Copyright>
     <PackageProjectUrl>https://github.com/Jrogo7/LocationInfo</PackageProjectUrl>
